@@ -102,26 +102,42 @@
 
   main{max-width:1080px; margin:0 auto; padding:28px 20px 80px;}
 
-  /* 検索 */
-  .search-block{margin-bottom:8px; margin-top:-54px; position:relative; z-index:10;}
-  .search-row{
-    display:flex; gap:10px; background:var(--card); padding:12px;
-    border-radius:18px; box-shadow:0 10px 30px rgba(20,49,74,.16);
+  /* 検索(このサイトの主役) */
+  .search-block{margin-bottom:8px; margin-top:-70px; position:relative; z-index:10;}
+  .search-card{
+    background:var(--card); padding:20px 24px 16px; border-radius:22px;
+    box-shadow:0 16px 44px rgba(20,49,74,.24);
+    border:3px solid var(--sun);
   }
+  .search-title{
+    font-family:"Shippori Mincho", serif; font-weight:800; font-size:19px;
+    letter-spacing:.14em; color:var(--night); margin-bottom:12px;
+    display:flex; align-items:center; gap:9px;
+  }
+  .search-title::before{content:"🔍"; font-size:17px;}
+  .search-row{display:flex; gap:12px;}
   .search-row input{
-    flex:1; padding:12px 16px; font-size:16px; border:2px solid var(--line-strong);
-    background:#FFFDF6; border-radius:12px; color:var(--ink);
+    flex:1; padding:16px 20px; font-size:18px; border:2.5px solid var(--line-strong);
+    background:#FFFDF6; border-radius:14px; color:var(--ink);
     font-family:inherit;
   }
-  .search-row input:focus{outline:none; border-color:var(--sky);}
+  .search-row input:focus{outline:none; border-color:var(--sky); box-shadow:0 0 0 4px rgba(30,143,191,.15);}
   .search-row button{
-    padding:12px 30px; background:var(--coral); color:#fff; border:none; border-radius:12px;
-    font-family:inherit; font-size:15px; font-weight:900; letter-spacing:.2em; cursor:pointer;
-    box-shadow:0 4px 0 #C23527;
+    padding:16px 38px; background:var(--coral); color:#fff; border:none; border-radius:14px;
+    font-family:inherit; font-size:17px; font-weight:900; letter-spacing:.2em; cursor:pointer;
+    box-shadow:0 5px 0 #C23527;
     transition:transform .1s ease, box-shadow .1s ease;
   }
-  .search-row button:hover{transform:translateY(2px); box-shadow:0 2px 0 #C23527;}
-  .search-hint{color:var(--ash); font-size:12px; margin-top:10px; padding:0 6px;}
+  .search-row button:hover{transform:translateY(3px); box-shadow:0 2px 0 #C23527;}
+  .search-row button.btn-clear{
+    background:#fff; color:var(--ash); border:2.5px solid var(--line-strong);
+    box-shadow:0 5px 0 var(--line-strong); letter-spacing:.1em; padding:16px 24px;
+  }
+  .search-row button.btn-clear:hover{
+    transform:translateY(3px); box-shadow:0 2px 0 var(--line-strong);
+    color:var(--coral); border-color:var(--coral);
+  }
+  .search-hint{color:var(--ash); font-size:12px; margin-top:10px; padding:0 4px;}
 
   .results{margin-top:18px;}
   .result-item{
@@ -185,6 +201,67 @@
   section.panel:nth-of-type(2){border-top-color:var(--leaf);}
   section.panel:nth-of-type(3){border-top-color:var(--sun);}
   section.panel:nth-of-type(4){border-top-color:var(--magenta);}
+
+  /* CSVダウンロードボタン */
+  .btn-csv{
+    margin-left:auto; background:var(--leaf); color:#fff; border:none;
+    font-weight:900; font-family:inherit; font-size:12px; letter-spacing:.06em;
+    padding:7px 18px; border-radius:999px; cursor:pointer;
+    box-shadow:0 3px 0 #1C6B45;
+    transition:transform .1s ease, box-shadow .1s ease;
+  }
+  .btn-csv:hover{transform:translateY(2px); box-shadow:0 1px 0 #1C6B45;}
+
+  /* 共有リンクボタン */
+  .btn-share{
+    background:var(--sky); color:#fff; border:none;
+    font-weight:900; font-family:inherit; font-size:12.5px; letter-spacing:.06em;
+    padding:9px 20px; border-radius:999px; cursor:pointer;
+    box-shadow:0 3px 0 #155F80;
+    transition:transform .1s ease, box-shadow .1s ease;
+  }
+  .btn-share:hover{transform:translateY(2px); box-shadow:0 1px 0 #155F80;}
+  .btn-share.copied{background:var(--leaf); box-shadow:0 3px 0 #1C6B45;}
+
+  /* トップページのリスト */
+  .home-list{margin-top:4px;}
+  .hl-row{
+    display:flex; align-items:center; gap:12px;
+    padding:9px 6px; border-bottom:1px solid var(--line); font-size:13.5px;
+  }
+  .hl-row:last-child{border-bottom:none;}
+  .hl-row.clickable{cursor:pointer; border-radius:8px;}
+  .hl-row.clickable:hover{background:#FFF9E8;}
+  .hl-rank{
+    flex-shrink:0; width:30px; height:30px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:"Shippori Mincho", serif; font-weight:800; font-size:14px;
+    background:var(--paper); color:var(--ash); border:2px solid var(--line-strong);
+  }
+  .hl-row:nth-child(1) .hl-rank{background:var(--sun); color:var(--night); border-color:var(--sun);}
+  .hl-row:nth-child(2) .hl-rank{background:#C9D2D9; color:var(--night); border-color:#C9D2D9;}
+  .hl-row:nth-child(3) .hl-rank{background:#D08B4C; color:#fff; border-color:#D08B4C;}
+  .hl-main{flex:1; min-width:0; line-height:1.5;}
+  .hl-title{
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:700;
+  }
+  .hl-book{font-size:11.5px; color:var(--ash);}
+  .hl-pv{flex-shrink:0; font-weight:900; color:var(--night); text-align:right;}
+  .hl-pv small{font-weight:500; color:var(--ash); font-size:10.5px; margin-left:2px;}
+
+  /* トップリストは検索より控えめに(検索ボックスと同幅で縦積み) */
+  #home{display:grid; grid-template-columns:1fr; gap:18px; margin-top:28px;}
+  #home .panel{
+    margin-top:0; padding:15px 18px 16px; border-top-width:6px;
+    box-shadow:0 4px 14px rgba(20,49,74,.06);
+  }
+  #home .panel h3{font-size:13.5px; padding-bottom:8px; margin-bottom:8px; letter-spacing:.08em;}
+  #home .panel h3 .note{font-size:10.5px;}
+  #home .hl-row{font-size:12.5px; padding:7px 4px; gap:10px;}
+  #home .hl-rank{width:24px; height:24px; font-size:12px;}
+  #home .hl-book{font-size:10.5px;}
+  #home .hl-pv{font-size:12.5px;}
+  #home .legend-note{font-size:10.5px; margin-top:8px;}
 
   /* ランキングチップ */
   .rank-chips{margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;}
@@ -375,7 +452,10 @@
     .okuzuke h2{font-size:20px; padding-right:0; margin-top:34px;}
     .result-item{flex-direction:column; align-items:flex-start;}
     .result-item .meta{text-align:left;}
-    .search-block{margin-top:-40px;}
+    .search-block{margin-top:-52px;}
+    .search-row{flex-direction:column;}
+    .search-row input{font-size:16px; padding:14px 16px;}
+    .search-row button{padding:13px;}
   }
 </style>
 </head>
@@ -387,7 +467,7 @@
   <div class="leafdot" style="width:110px;height:110px;background:var(--magenta);left:8%;bottom:8%;animation-delay:1.4s;"></div>
   <div class="leafdot" style="width:80px;height:80px;background:var(--sun);right:10%;bottom:14%;animation-delay:.4s;"></div>
   <div class="hero-center" id="heroCenter">
-    <span class="hero-eyebrow">GOLD LIFE ONLINE</span>
+    <span class="hero-eyebrow">ゴールドライフオンライン</span>
     <h1>作品カルテ</h1>
     <span class="sub">作品・記事実績の検索台帳｜知りたい作品を、いますぐ検索</span>
     <div><button id="helpBtn" class="btn-help">？ 使い方ガイド</button></div>
@@ -396,18 +476,37 @@
 
 <main>
   <div class="search-block">
-    <div class="search-row">
-      <input id="searchInput" type="search" placeholder="作品名で検索(例:泥の中で咲け)" autocomplete="off">
-      <button id="searchBtn">検索</button>
+    <div class="search-card">
+      <div class="search-title">作品名で検索</div>
+      <div class="search-row">
+        <input id="searchInput" type="search" placeholder="作品名を入力(例:泥の中で咲け)" autocomplete="off">
+        <button id="searchBtn">検索</button>
+        <button id="clearBtn" class="btn-clear">クリア</button>
+      </div>
+      <div class="search-hint">作品名(部分一致)で探せます。「ピックアップ」再掲は別作品として表示されるので、初出との比較ができます。</div>
     </div>
-    <div class="search-hint">キントーン登録の作品名(部分一致)で探せます。「ピックアップ」再掲は別作品として表示されるので、初出との比較ができます。</div>
   </div>
 
   <div id="results" class="results"></div>
 
+  <!-- トップページ:いま見るべき作品 -->
+  <div id="home">
+    <section class="panel" style="border-top-color:var(--coral);">
+      <h3>直近7日で跳ねた記事 TOP10<span class="note" id="hotArticlesNote"></span></h3>
+      <div id="hotArticles" class="home-list"><div class="status">読み込み中…</div></div>
+      <div class="legend-note">クリックすると記事ページが開きます。</div>
+    </section>
+    <section class="panel" style="border-top-color:var(--sun);">
+      <h3>先月跳ねた作品 TOP10<span class="note" id="hotBooksNote"></span></h3>
+      <div id="hotBooks" class="home-list"><div class="status">読み込み中…</div></div>
+      <div class="legend-note">クリックでカルテが開きます。</div>
+    </section>
+  </div>
+
   <!-- カルテ本体 -->
   <div id="karte" class="karte">
     <div class="karte-actions">
+      <button id="shareBtn" class="btn-share">🔗 このカルテの共有リンクをコピー</button>
       <button id="karteClose" class="btn-close-karte">✕ カルテを閉じて別の作品をさがす</button>
     </div>
     <div class="okuzuke">
@@ -427,7 +526,7 @@
       <h3>SmartNews 日次PV推移<span class="note" id="dailyNote"></span></h3>
       <div id="dailyStatus" class="status" style="display:none;"></div>
       <div class="chart-box" id="dailyChartBox"></div>
-      <div class="legend-note"><span class="tri">▲</span> は記事の配信日。<b>グラフ上の見たい日をクリックすると、その日の記事別PV内訳が下に表示されます。</b>日次データは 2025/9/8 以降のみ(それ以前の配信作品は月次実績のみ)。</div>
+      <div class="legend-note"><span class="tri">▲</span> は記事の配信日。<b>グラフ上の見たい日をクリックすると、その日の記事別PV内訳が下に表示されます。</b>日次データは 2025/9/1 以降のみ(それ以前の配信作品は月次実績のみ)。</div>
       <div id="dayBreakdown"></div>
     </section>
 
@@ -439,7 +538,7 @@
         <span class="lg"><i style="background:var(--leaf)"></i>GLO PV(右軸・折れ線)</span>
       </div>
       <div class="chart-box" id="monthlyChartBox"></div>
-      <div class="legend-note">日次データがない2025/9/8より前の期間も、月別ならここで確認できます。</div>
+      <div class="legend-note">日次データがない2025/9/1より前の期間も、月別ならここで確認できます。</div>
     </section>
 
     <section class="panel">
@@ -448,7 +547,7 @@
     </section>
 
     <section class="panel">
-      <h3>記事別実績<span class="note" id="matchNote"></span></h3>
+      <h3>記事別実績<span class="note" id="matchNote"></span><button id="csvBtn" class="btn-csv">⬇ CSVダウンロード</button></h3>
       <div id="articlesStatus" class="status" style="display:none;"></div>
       <div class="table-scroll">
         <table class="articles">
@@ -477,30 +576,33 @@
     <h4>作品カルテの使い方(データの見方)</h4>
     <div class="help-body">
       <h5 style="border-color:var(--sky);">1. 作品をさがす</h5>
-      <p>検索ボックスに作品名の一部(2文字以上)を入れると候補が出ます。同じ作品でも「(人気連載ピックアップ)」などの<span class="kw">再掲は別カルテ</span>として表示されるので、初出と再掲の実績を見比べられます。</p>
+      <p>検索ボックスに作品名の一部(2文字以上)を入れると候補が出ます。同じ作品でも「(人気連載ピックアップ)」などの<span class="kw">再掲は別カルテ</span>として表示されるので、初出と再掲の実績を見比べられます。検索前のトップには<span class="kw">「直近7日で跳ねた記事TOP10」「先月跳ねた作品TOP10」</span>が表示されます。跳ねた記事はクリックすると記事ページが開き、跳ねた作品はクリックするとカルテに移動できます。</p>
 
       <h5 style="border-color:var(--coral);">2. カルテ上部のサマリー</h5>
-      <p>選んだ作品の<span class="kw">SmartNews PV・GLO PV・GLO UUの累計と記事数</span>です。その下のチップには<span class="kw">全作品中のランキング(SN PV累計・GLO UU累計)</span>が出ます。「上位◯%」は著者への報告にそのまま使えます。</p>
+      <p>選んだ作品の<span class="kw">SmartNews PV・GLO PV・GLO UUの累計と記事数</span>です。その下のチップには<span class="kw">全作品中のランキング(SN PV累計・GLO UU累計)</span>が出ます。</p>
 
       <h5 style="border-color:var(--leaf);">3. SmartNews 日次PV推移グラフ</h5>
       <p>作品内の全記事のSmartNews PVを<span class="kw">1日ごとに合算</span>した折れ線です(どれか1記事の数値ではありません)。<span style="color:var(--coral); font-weight:900;">▲</span>は記事の配信日。▲の直後の山はその回の初速、<span class="kw">▲がないのに立つ山は過去記事の「再燃」</span>です。カーソルを乗せると日付とPVが表示されます。</p>
       <p><span class="kw">グラフ上の気になる日をクリック</span>すると、その日の記事別PV内訳(上位10件)が下に開きます。連載回のバッジが<span class="bd-ep" style="width:auto; padding:1px 10px;">空色</span>ならその日に近い配信分、<span class="bd-ep rerun" style="width:auto; padding:1px 10px;">朱色</span>なら配信から7日以上経った再燃・ロングテールです。</p>
 
       <h5 style="border-color:var(--leaf);">4. 月別PV推移グラフ</h5>
-      <p>作品の実績を<span class="kw">月ごとに集計</span>したグラフです。青い棒がSmartNews PV(左軸)、緑の折れ線がGLO PV(右軸)。日次データがない<span class="kw">2025年9月8日より前の期間も、こちらなら遡って</span>確認できます。</p>
+      <p>作品の実績を<span class="kw">月ごとに集計</span>したグラフです。青い棒がSmartNews PV(左軸)、緑の折れ線がGLO PV(右軸)。日次データがない<span class="kw">2025年9月1日より前の期間も、こちらなら遡って</span>確認できます。</p>
 
       <h5 style="border-color:var(--sun);">5. チャンネル別PV構成</h5>
       <p>SmartNewsの<span class="kw">どの面(トップ・恋愛・ファミリーなど)で読まれた作品か</span>の構成比です。配信戦略やタイトル付けの参考になります。</p>
 
       <h5 style="border-color:var(--magenta);">6. 記事別実績テーブル</h5>
-      <p>連載回ごとの配信日とPV・UUの一覧です。<span class="badge-daily">日次</span>が付いた行はクリックするとその記事単体の日別PVカーブ(初日・ピーク・累計)が開きます。<span class="badge-none">月次のみ</span>の記事は、SmartNews配信時にタイトルが変更されたか日次データ期間外のため、月次実績のみの表示です。</p>
+      <p>連載回ごとの配信日とPV・UUの一覧です。<span class="badge-daily">日次</span>が付いた行はクリックするとその記事単体の日別PVカーブ(初日・ピーク・累計)が開きます。初日PVの横には<span class="kw">全記事の中央値との比較(◯倍・上位◯%)</span>が出るので、初速の良し悪しを客観的に判断できます。<span class="badge-none">月次のみ</span>の記事は、SmartNews配信時にタイトルが変更されたか日次データ期間外のため、月次実績のみの表示です。見出し右の<span class="kw">「⬇ CSVダウンロード」ボタン</span>を押すと、この一覧(作品名・合計行付き)をCSVファイルで保存できます。</p>
 
       <h5 style="border-color:#7A5FC7;">7. SNSシェア数</h5>
       <p>記事をクリックして開くモーダルの統計行に、<span class="kw">SNSシェア:X(Twitter)／Facebook／LINE</span>を表示しています。SmartNews経由でその記事がどれだけ拡散されたかの目安です。シェアされる記事は限られるため、<span class="kw">0が並ぶことも珍しくありません</span>。数値が付いている記事は、読者が人に伝えたくなる内容だったと考えられます。</p>
 
+      <h5 style="border-color:var(--sky);">8. カルテの共有リンク</h5>
+      <p>カルテを開くと、ブラウザのURL末尾に作品名が付きます(例:<span class="kw">…/#泥の中で咲け…</span>)。カルテ右上の<span class="kw">「🔗 このカルテの共有リンクをコピー」</span>を押してChatworkやメールに貼れば、受け取った人はリンクを開くだけで<span class="kw">同じカルテが直接表示</span>されます。検索し直してもらう必要はありません。</p>
+
       <h5 style="border-color:var(--ash);">データについて</h5>
-      <p><span class="kw">2026年7月13日時点では2021年1月以降のデータを取り込んでいます。</span>(2020年分も後日取り込み予定です)</p>
-      <p>日次PVデータは<span class="kw">2025年9月8日以降</span>のみです。それより前に配信された作品は月次実績のみ表示されます。数値は取り込み時点のものです。</p>
+      <p><span class="kw">Supabaseから2020年4月以降のGLO配信開始以降のデータを取り込んでいます。</span></p>
+      <p>SmartNews日次PVデータは<span class="kw">2025年9月1日以降</span>のみです。それより前に配信された作品は月次実績のみ表示されます。数値は取り込み時点のものです。</p>
     </div>
   </div>
 </div>
@@ -688,6 +790,12 @@ $("searchInput").addEventListener("input", ()=>{
 });
 $("searchInput").addEventListener("keydown", e=>{ if(e.key==="Enter") runSearch(); });
 $("searchBtn").addEventListener("click", runSearch);
+$("clearBtn").addEventListener("click", ()=>{
+  clearTimeout(searchTimer);
+  $("searchInput").value = "";
+  $("results").innerHTML = "";
+  $("searchInput").focus();
+});
 
 async function runSearch(){
   const q = $("searchInput").value.trim();
@@ -724,6 +832,8 @@ async function openKarte(book){
   currentBook = book;
   $("dayBreakdown").innerHTML = "";
   $("rankChips").innerHTML = "";
+  $("home").style.display = "none";
+  try{ history.replaceState(null, "", "#" + encodeURIComponent(book)); }catch(e){}
   $("karte").classList.add("visible");
   $("bookTitle").textContent = book;
   $("bookPeriod").textContent = "読み込み中…";
@@ -789,7 +899,7 @@ function renderDaily(daily, articles){
 
   if(daily.length === 0){
     status.style.display = "block";
-    status.textContent = "この作品はSmartNews日次データ(2025/9/8以降)と一致する記事がありません。実績は下の「月別PV推移」と記事別テーブルで確認できます。";
+    status.textContent = "この作品はSmartNews日次データ(2025/9/1以降)と一致する記事がありません。実績は下の「月別PV推移」と記事別テーブルで確認できます。";
     $("dailyNote").textContent = "";
     return;
   }
@@ -1057,9 +1167,10 @@ async function openArticleModal(article){
   chartRegistry.delete("articleChartBox");
   $("modalBg").classList.add("visible");
   try{
-    const [daily, snsRows] = await Promise.all([
-      rpc("karte_article_daily", {p_title: article.article_title}),
-      rpc("karte_article_sns",   {p_title: article.article_title})
+    const [daily, snsRows, fdRows] = await Promise.all([
+      rpc("karte_article_daily",    {p_title: article.article_title}),
+      rpc("karte_article_sns",      {p_title: article.article_title}),
+      rpc("karte_article_firstday", {p_title: article.article_title})
     ]);
     if(daily.length === 0){
       $("modalStats").textContent = "日次データがありません。";
@@ -1071,8 +1182,12 @@ async function openArticleModal(article){
     const values = daily.map(d=>Number(d.sn_pv));
     const total = values.reduce((s,v)=>s+v,0);
     const peak = Math.max(...values);
+    const fd = (fdRows && fdRows[0]) || null;
+    const fdText = (fd && fd.first_pv != null && fd.vs_median != null)
+      ? `<span style="color:var(--coral); font-weight:900;">(全記事中央値の${fd.vs_median}倍・上位${fd.top_pct}%)</span>`
+      : "";
     $("modalStats").innerHTML =
-      `日次累計 <b class="num">${fmt(total)}</b> PV ｜ 初日 <b class="num">${fmt(values[0])}</b> PV ｜ ` +
+      `日次累計 <b class="num">${fmt(total)}</b> PV ｜ 初日 <b class="num">${fmt(values[0])}</b> PV${fdText} ｜ ` +
       `ピーク <b class="num">${fmt(peak)}</b> PV(${labels[values.indexOf(peak)]})｜ 計測 ${daily.length} 日` + snsText;
     drawLineChart($("articleChartBox"), labels, values,
                   {color:"#D6437E", fill:"rgba(214,67,126,.1)", height:260});
@@ -1093,10 +1208,140 @@ document.addEventListener("keydown", e=>{
 $("karteClose").addEventListener("click", ()=>{
   $("karte").classList.remove("visible");
   $("dayBreakdown").innerHTML = "";
+  $("home").style.display = "";
+  try{ history.replaceState(null, "", location.pathname + location.search); }catch(e){}
   const inp = $("searchInput");
   inp.scrollIntoView({behavior:"smooth", block:"center"});
   inp.focus();
   inp.select();
+});
+
+/* ---------- ① 共有リンクのコピー ---------- */
+async function copyText(t){
+  try{ await navigator.clipboard.writeText(t); return true; }
+  catch(e){
+    const ta = document.createElement("textarea");
+    ta.value = t; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    let ok = false;
+    try{ ok = document.execCommand("copy"); }catch(_){}
+    document.body.removeChild(ta);
+    return ok;
+  }
+}
+$("shareBtn").addEventListener("click", async ()=>{
+  const btn = $("shareBtn");
+  const ok = await copyText(location.href);
+  btn.textContent = ok ? "✓ コピーしました!チャット等に貼って共有できます" : "コピーできませんでした。URL欄から直接コピーしてください";
+  btn.classList.add("copied");
+  setTimeout(()=>{
+    btn.textContent = "🔗 このカルテの共有リンクをコピー";
+    btn.classList.remove("copied");
+  }, 2200);
+});
+
+/* ---------- ⑨ トップページ:いま見るべき作品 ---------- */
+async function loadHome(){
+  try{
+    const arts = await rpc("karte_home_hot_articles", {});
+    if(arts.length === 0){
+      $("hotArticles").innerHTML = `<div class="status">直近7日のデータがありません。</div>`;
+    }else{
+      $("hotArticlesNote").textContent =
+        `集計期間 ${arts[0].period_start.replace(/-/g,"/")} 〜 ${arts[0].period_end.replace(/-/g,"/")}`;
+      $("hotArticles").innerHTML = arts.map(a=>`
+        <div class="hl-row ${a.url ? "clickable" : ""}" ${a.url ? `data-url="${escapeAttr(a.url)}"` : ""}>
+          <span class="hl-rank"></span>
+          <span class="hl-main">
+            <span class="hl-title" title="${escapeAttr(a.title)}">${escapeHtml(a.title)}</span>
+            ${a.url ? '<span class="hl-book">記事ページを開く ↗</span>' : ""}
+          </span>
+          <span class="hl-pv num">${fmt(a.sn_pv)}<small>PV</small></span>
+        </div>`).join("");
+      numberRanks("hotArticles");
+    }
+  }catch(err){
+    $("hotArticles").innerHTML = `<div class="status error">${escapeHtml(err.message)}</div>`;
+  }
+  try{
+    const books = await rpc("karte_home_hot_books", {});
+    if(books.length === 0){
+      $("hotBooks").innerHTML = `<div class="status">先月のデータがありません。</div>`;
+    }else{
+      $("hotBooksNote").textContent =
+        `${books[0].month.slice(0,7).replace("-","/")} のSmartNews PV合計`;
+      $("hotBooks").innerHTML = books.map(b=>`
+        <div class="hl-row clickable" data-book="${escapeAttr(b.book_title)}">
+          <span class="hl-rank"></span>
+          <span class="hl-main">
+            <span class="hl-title" title="${escapeAttr(b.book_title)}">${escapeHtml(b.book_title)}</span>
+            <span class="hl-book">全${b.article_count}記事</span>
+          </span>
+          <span class="hl-pv num">${fmt(b.sn_pv)}<small>PV</small></span>
+        </div>`).join("");
+      numberRanks("hotBooks");
+    }
+  }catch(err){
+    $("hotBooks").innerHTML = `<div class="status error">${escapeHtml(err.message)}</div>`;
+  }
+  document.querySelectorAll("#home .hl-row.clickable").forEach(el=>{
+    el.addEventListener("click", ()=>{
+      if(el.dataset.url){ window.open(el.dataset.url, "_blank", "noopener"); }
+      else if(el.dataset.book){ openKarte(el.dataset.book); }
+    });
+  });
+}
+function numberRanks(id){
+  document.querySelectorAll(`#${id} .hl-rank`).forEach((el,i)=>{ el.textContent = i+1; });
+}
+loadHome();
+
+/* ---------- ① 共有リンクで直接カルテを開く ---------- */
+if(location.hash.length > 1){
+  try{
+    openKarte(decodeURIComponent(location.hash.slice(1)));
+  }catch(e){}
+}else{
+  $("searchInput").focus();
+}
+
+/* ---------- 記事別実績のCSVダウンロード ---------- */
+$("csvBtn").addEventListener("click", ()=>{
+  if(!currentArticles || currentArticles.length === 0) return;
+  const esc = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const header = ["配信日","連載回","記事タイトル","SmartNews PV","GLO PV","GLO UU","日次データ"];
+  const lines = [
+    [esc("作品名"), esc(currentBook)].join(","),
+    "",
+    header.map(esc).join(",")
+  ];
+  currentArticles.forEach(a=>{
+    lines.push([
+      esc(a.published_date ?? ""),
+      esc(a.episode ?? ""),
+      esc(a.article_title),
+      a.sn_pv ?? 0,
+      a.glo_pv ?? 0,
+      a.glo_uu ?? 0,
+      esc(a.has_daily ? "あり" : "月次のみ")
+    ].join(","));
+  });
+  // 合計行
+  const sum = k => currentArticles.reduce((s,a)=>s+Number(a[k]||0),0);
+  lines.push([esc(""), esc(""), esc("合計"), sum("sn_pv"), sum("glo_pv"), sum("glo_uu"), esc("")].join(","));
+
+  const csv = "\uFEFF" + lines.join("\r\n");
+  const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
+  const a = document.createElement("a");
+  const today = new Date();
+  const ymd = today.getFullYear() + String(today.getMonth()+1).padStart(2,"0") + String(today.getDate()).padStart(2,"0");
+  const safeName = currentBook.replace(/[\\\/:\*\?"<>\|]/g, "_").slice(0, 60);
+  a.href = URL.createObjectURL(blob);
+  a.download = `作品カルテ_${safeName}_${ymd}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
 });
 
 /* ---------- 使い方ガイド ---------- */
