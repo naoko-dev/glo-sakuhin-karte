@@ -269,6 +269,40 @@
   #home .hl-pv{font-size:12.5px;}
   #home .legend-note{font-size:10.5px; margin-top:8px;}
 
+  /* 月間成績表 */
+  .mini-select{
+    margin-left:8px; font-family:inherit; font-size:12px; font-weight:700;
+    color:var(--ink); background:#FFFDF6; border:2px solid var(--line-strong);
+    border-radius:999px; padding:4px 12px; cursor:pointer;
+  }
+  .mini-select:focus{outline:none; border-color:var(--sky);}
+  .sort-tabs{margin-left:auto; display:inline-flex; border:2px solid var(--line-strong); border-radius:999px; overflow:hidden; background:#FFFDF6;}
+  .sort-tabs button{
+    border:none; background:none; font-family:inherit; font-size:11.5px; font-weight:900;
+    color:var(--ash); padding:5px 12px; cursor:pointer; letter-spacing:.03em;
+  }
+  .sort-tabs button + button{border-left:2px solid var(--line);}
+  .sort-tabs button.on{background:#7A5FC7; color:#fff;}
+  table.mtable{width:100%; border-collapse:collapse; font-size:12.5px;}
+  .mtable th{
+    text-align:right; font-weight:700; color:var(--ash); font-size:11px;
+    letter-spacing:.06em; padding:5px 8px; border-bottom:2px solid var(--line-strong);
+    white-space:nowrap;
+  }
+  .mtable th:nth-child(2){text-align:left;}
+  .mtable th.sorted{color:#7A5FC7;}
+  .mtable td{
+    padding:7px 8px; border-bottom:1px solid var(--line);
+    text-align:right; white-space:nowrap;
+  }
+  .mtable td.sorted{color:#7A5FC7; font-weight:900;}
+  .mtable td.mt-book{
+    text-align:left; white-space:normal; min-width:180px; line-height:1.45; font-weight:700;
+  }
+  .mtable td.mt-rank{color:var(--ash); font-family:"Shippori Mincho", serif; font-weight:800;}
+  .mtable tr.clickable{cursor:pointer;}
+  .mtable tr.clickable:hover td{background:#FFF9E8;}
+
   /* ランキングチップ */
   .rank-chips{margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;}
   .rank-chip{
@@ -540,10 +574,15 @@
       <div id="hotArticles" class="home-list"><div class="status">読み込み中…</div></div>
       <div class="legend-note">クリックすると記事ページが開きます。</div>
     </section>
-    <section class="panel" style="border-top-color:var(--sun);">
-      <h3>先月跳ねた作品 TOP10<span class="note" id="hotBooksNote"></span></h3>
-      <div id="hotBooks" class="home-list"><div class="status">読み込み中…</div></div>
-      <div class="legend-note">クリックでカルテが開きます。</div>
+    <section class="panel" style="border-top-color:#7A5FC7;">
+      <h3>月間成績表<span class="note" id="monthNote"></span>
+        <span class="sort-tabs" id="sortTabs">
+          <button data-sort="sn" class="on">SN PV順</button><button data-sort="glo_pv">GLO PV順</button><button data-sort="glo_uu">GLO UU順</button>
+        </span>
+        <select id="monthSel" class="mini-select"></select>
+      </h3>
+      <div class="table-scroll" id="monthList"><div class="status">読み込み中…</div></div>
+      <div class="legend-note">選んだ月の作品別ランキング上位30。並び順はタブで切り替えられます。行をクリックするとカルテが開きます。</div>
     </section>
   </div>
 
@@ -620,7 +659,7 @@
     <h4>作品カルテの使い方(データの見方)</h4>
     <div class="help-body">
       <h5 style="border-color:var(--sky);">1. 作品をさがす</h5>
-      <p>検索ボックスに作品名の一部(2文字以上)を入れると候補が出ます。同じ作品でも「(人気連載ピックアップ)」などの<span class="kw">再掲は別カルテ</span>として表示されるので、初出と再掲の実績を見比べられます。検索前のトップには<span class="kw">「直近7日で跳ねた記事TOP10」「先月跳ねた作品TOP10」</span>が表示されます。跳ねた記事はクリックすると記事ページが開き、跳ねた作品はクリックするとカルテに移動できます。</p>
+      <p>検索ボックスに作品名の一部(2文字以上)を入れると候補が出ます。同じ作品でも「(人気連載ピックアップ)」などの<span class="kw">再掲は別カルテ</span>として表示されるので、初出と再掲の実績を見比べられます。検索前のトップには<span class="kw">「直近7日で跳ねた記事TOP10」「月間成績表」</span>が表示されます。跳ねた記事はクリックすると記事ページが開き、月間成績表の作品はクリックするとカルテに移動できます。</p>
 
       <h5 style="border-color:var(--coral);">2. カルテ上部のサマリー</h5>
       <p>選んだ作品の<span class="kw">SmartNews PV・GLO PV・GLO UUの累計と記事数</span>です。その下のチップには<span class="kw">全作品中のランキング(SN PV累計・GLO UU累計)</span>が出ます。</p>
@@ -643,6 +682,9 @@
 
       <h5 style="border-color:var(--sky);">8. カルテの共有リンク</h5>
       <p>カルテを開くと、ブラウザのURL末尾に作品名が付きます(例:<span class="kw">…/#泥の中で咲け…</span>)。カルテ右上の<span class="kw">「🔗 このカルテの共有リンクをコピー」</span>を押してChatworkやメールに貼れば、受け取った人はリンクを開くだけで<span class="kw">同じカルテが直接表示</span>されます。検索し直してもらう必要はありません。</p>
+
+      <h5 style="border-color:#7A5FC7;">9. 月間成績表</h5>
+      <p>トップページにあります。月を選ぶと、その月の作品別ランキング上位30が<span class="kw">SmartNews PV・GLO PV・GLO UU</span>の3指標つきで表示されます。並び順は<span class="kw">「SN PV順/GLO PV順/GLO UU順」のタブで切り替え</span>でき、いま並び替えに使っている列は紫色で強調されます。行をクリックするとその作品のカルテに移動します。</p>
 
       <h5 style="border-color:var(--ash);">データについて</h5>
       <p><span class="kw">Supabaseから2020年4月以降のGLO配信開始以降のデータを取り込んでいます。</span></p>
@@ -1312,27 +1354,6 @@ async function loadHome(){
   }catch(err){
     $("hotArticles").innerHTML = `<div class="status error">${escapeHtml(err.message)}</div>`;
   }
-  try{
-    const books = await rpc("karte_home_hot_books", {});
-    if(books.length === 0){
-      $("hotBooks").innerHTML = `<div class="status">先月のデータがありません。</div>`;
-    }else{
-      $("hotBooksNote").textContent =
-        `${books[0].month.slice(0,7).replace("-","/")} のSmartNews PV合計`;
-      $("hotBooks").innerHTML = books.map(b=>`
-        <div class="hl-row clickable" data-book="${escapeAttr(b.book_title)}">
-          <span class="hl-rank"></span>
-          <span class="hl-main">
-            <span class="hl-title" title="${escapeAttr(b.book_title)}">${escapeHtml(b.book_title)}</span>
-            <span class="hl-book">全${b.article_count}記事</span>
-          </span>
-          <span class="hl-pv num">${fmt(b.sn_pv)}<small>PV</small></span>
-        </div>`).join("");
-      numberRanks("hotBooks");
-    }
-  }catch(err){
-    $("hotBooks").innerHTML = `<div class="status error">${escapeHtml(err.message)}</div>`;
-  }
   document.querySelectorAll("#home .hl-row.clickable").forEach(el=>{
     el.addEventListener("click", ()=>{
       if(el.dataset.url){ window.open(el.dataset.url, "_blank", "noopener"); }
@@ -1343,7 +1364,68 @@ async function loadHome(){
 function numberRanks(id){
   document.querySelectorAll(`#${id} .hl-rank`).forEach((el,i)=>{ el.textContent = i+1; });
 }
+function bindKarteRows(id){
+  document.querySelectorAll(`#${id} .clickable:not([data-bound])`).forEach(el=>{
+    el.dataset.bound = "1";
+    el.addEventListener("click", ()=>{
+      if(el.dataset.url){ window.open(el.dataset.url, "_blank", "noopener"); }
+      else if(el.dataset.book){ openKarte(el.dataset.book); }
+    });
+  });
+}
 loadHome();
+
+/* ---------- 月間成績表(並び替え対応) ---------- */
+let monthSort = "sn";
+const SORT_LABEL = {sn:"SmartNews PV", glo_pv:"GLO PV", glo_uu:"GLO UU"};
+
+async function loadMonthlyRanking(month){
+  $("monthList").innerHTML = `<div class="status">読み込み中…</div>`;
+  try{
+    const rows = await rpc("karte_monthly_ranking", {p_month: month, p_sort: monthSort, p_limit: 30});
+    if(rows.length === 0){
+      $("monthList").innerHTML = `<div class="status">この月のデータがありません。</div>`;
+      $("monthNote").textContent = "";
+      return;
+    }
+    $("monthNote").textContent = `${month.slice(0,7).replace("-","/")} ｜ ${SORT_LABEL[monthSort]}順`;
+    const hd = k => monthSort === k ? ' class="sorted"' : "";
+    const cell = k => monthSort === k ? ' sorted' : "";
+    $("monthList").innerHTML = `
+      <table class="mtable">
+        <thead><tr><th>順位</th><th>作品名</th><th${hd("sn")}>SN PV</th><th${hd("glo_pv")}>GLO PV</th><th${hd("glo_uu")}>GLO UU</th></tr></thead>
+        <tbody>${rows.map(r=>`
+          <tr class="clickable" data-book="${escapeAttr(r.book_title)}">
+            <td class="mt-rank num">${r.rank}</td>
+            <td class="mt-book">${escapeHtml(r.book_title)}</td>
+            <td class="num${cell("sn")}">${fmt(r.sn_pv)}</td>
+            <td class="num${cell("glo_pv")}">${fmt(r.glo_pv)}</td>
+            <td class="num${cell("glo_uu")}">${fmt(r.glo_uu)}</td>
+          </tr>`).join("")}</tbody>
+      </table>`;
+    bindKarteRows("monthList");
+  }catch(err){
+    $("monthList").innerHTML = `<div class="status error">${escapeHtml(err.message)}</div>`;
+  }
+}
+(async function(){
+  $("sortTabs").querySelectorAll("button").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      monthSort = btn.dataset.sort;
+      $("sortTabs").querySelectorAll("button").forEach(b=> b.classList.toggle("on", b === btn));
+      loadMonthlyRanking($("monthSel").value);
+    });
+  });
+  try{
+    const months = await rpc("karte_month_list", {});
+    const sel = $("monthSel");
+    sel.innerHTML = months.map(m=>`<option value="${m.month}">${m.month.slice(0,7).replace("-","/")}</option>`).join("");
+    sel.addEventListener("change", ()=> loadMonthlyRanking(sel.value));
+    if(months.length) loadMonthlyRanking(months[0].month);
+  }catch(err){
+    $("monthList").innerHTML = `<div class="status error">${escapeHtml(err.message)}</div>`;
+  }
+})();
 
 /* ---------- ① 共有リンクで直接カルテを開く ---------- */
 if(location.hash.length > 1){
