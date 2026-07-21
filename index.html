@@ -479,6 +479,17 @@
     transition:transform .1s ease, box-shadow .1s ease;
   }
   .btn-help:hover{transform:translateY(2px); box-shadow:0 2px 0 #C98E0B;}
+  .hero-btns{margin-top:18px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
+  .hero-btns .btn-help{margin-top:0;}
+  .btn-tool{
+    display:inline-block; text-decoration:none;
+    background:var(--sky); color:#fff;
+    font-weight:900; font-family:inherit; font-size:13px; letter-spacing:.08em;
+    padding:10px 26px; border-radius:999px;
+    box-shadow:0 4px 0 #155F80;
+    transition:transform .1s ease, box-shadow .1s ease;
+  }
+  .btn-tool:hover{transform:translateY(2px); box-shadow:0 2px 0 #155F80;}
   .modal.help{border-top-color:var(--sun);}
   .help-body{margin-top:12px; font-size:13.5px; line-height:2;}
   .help-body h5{
@@ -623,7 +634,10 @@
     <span class="hero-eyebrow">ゴールドライフオンライン</span>
     <h1>作品カルテ</h1>
     <span class="sub">作品・記事実績の検索台帳｜知りたい作品を、いますぐ検索</span>
-    <div><button id="helpBtn" class="btn-help">？ 使い方ガイド</button></div>
+    <div class="hero-btns">
+      <button id="helpBtn" class="btn-help">？ 使い方ガイド</button>
+      <a href="https://naoko-dev.github.io/glo-report-generator/" target="_blank" rel="noopener" class="btn-tool">📊 GLOレポート自動生成ツール ↗</a>
+    </div>
   </div>
 </div>
 
